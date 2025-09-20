@@ -1,0 +1,1 @@
+同centOS，只是将相应部分改成ubuntu

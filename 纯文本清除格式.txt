@@ -1,0 +1,807 @@
+
+
+**Pandas中的数学和统计方法：全面指南**
+
+作为谷歌的一名资深首席技术官，我理解数据分析的重要性以及pandas为此提供的强大工具。Pandas提供了一套丰富的数学和统计方法，便于数据操作和分析。在本指南中，我们将深入这些方法，并通过具体实例帮助您掌握它们的实际应用。
+
+---
+
+## 第一节：简单统计指标
+
+**目标：** 学习如何使用pandas计算基本统计量。
+
+### **步骤1：导入必要的库**
+
+```python
+import numpy as np
+import pandas as pd
+```
+
+### **步骤2：创建示例DataFrame**
+
+让我们创建一个DataFrame，其中包含随机整数，以模拟现实世界数据。
+
+```python
+# 创建一个包含20行3列的DataFrame
+df = pd.DataFrame(
+    data=np.random.randint(0, 100, size=(20, 3)),
+    index=list('ABCDEFGHIJKLMNOPQRST'),
+    columns=['Python', 'TensorFlow', 'Keras']
+)
+
+# 显示DataFrame
+print(df.head())
+```
+
+**输出：**
+
+```
+   Python  TensorFlow  Keras
+A      20          35     93
+B      15          67     48
+C      78          25     70
+D      33          82     17
+E      50          19     85
+```
+
+### **步骤3：计算基本统计**
+
+- **非NA值的数量**
+
+  ```python
+  print("非NA值的数量:\n", df.count())
+  ```
+
+- **最大值和最小值**
+
+  ```python
+  print("最大值:\n", df.max())
+  print("最小值:\n", df.min())
+  ​```
+  ```
+
+- **中位数**
+
+  ```python
+  print("中位数:\n", df.median())
+  ```
+
+- **求和与平均值**
+
+  ```python
+  print("值的求和:\n", df.sum())
+  print("平均值:\n", df.mean())
+  ```
+
+- **分位数**
+
+  ```python
+  print("分位数:\n", df.quantile(q=[0.2,0.4,0.8]))
+  ```
+
+- **描述性统计**
+
+  ```python
+  print("描述性统计:\n", df.describe())
+  ```
+
+**说明：**
+
+- `df.count()` 返回每列的非缺失值数量。
+- `df.max()` 和 `df.min()` 提供每列的最大值和最小值。
+- `df.median()` 计算每列的中位数。
+- `df.sum()` 和 `df.mean()` 分别计算每列的总和和平均值。
+- `df.quantile()` 计算每列指定的分位数。
+- `df.describe()` 提供包括计数、平均值、标准差、最小值、最大值及四分位数的摘要。
+
+---
+
+## 第二节：索引标签和位置检索
+
+**目标：** 学习如何找到最大值和最小值的位置和标签。
+
+### **步骤1：识别极值的位置**
+
+- **'Python'列中最小值的位置**
+
+  ```python
+  min_pos = df['Python'].idxmin()
+  print(f"Python列中最小值的索引: {min_pos}")
+  ```
+
+- **'Keras'列中最大值的位置**
+
+  ```python
+  max_pos = df['Keras'].idxmax()
+  print(f"Keras列中最大值的索引: {max_pos}")
+  ```
+
+### **步骤2：检索极值的标签**
+
+- **最大值的标签**
+
+  ```python
+  print("最大值的标签:\n", df.idxmax())
+  ```
+
+- **最小值的标签**
+
+  ```python
+  print("最小值的标签:\n", df.idxmin())
+  ```
+
+**说明：**
+
+- `df['Python'].idxmin()` 返回'Python'列中最小值出现的索引标签。
+- `df.idxmax()` 和 `df.idxmin()` 返回每列最大值和最小值的索引标签。
+
+---
+
+## 第三节：更多统计指标
+
+**目标：** 探索pandas提供的更多统计方法。
+
+### **步骤1：值计数和唯一值**
+
+- **'Python'列中每个值的出现次数**
+
+  ```python
+  print("Python列中每个值的出现次数:\n", df['Python'].value_counts())
+  ```
+
+- **'Keras'列中的唯一值**
+
+  ```python
+  print("Keras列中的唯一值:\n", df['Keras'].unique())
+  ```
+
+### **步骤2：累积计算**
+
+- **累积求和**
+
+  ```python
+  print("累积求和:\n", df.cumsum())
+  ```
+
+- **累积乘积**
+
+  ```python
+  print("累积
+  ```
+
+乘积:\n", df.cumprod())
+
+  ```
+### **步骤3：方差和标准差**
+
+- **标准差**
+
+  ```python
+  print("标准差:\n", df.std())
+  ```
+
+- **方差**
+
+  ```python
+  print("方差:\n", df.var())
+  ```
+
+### **步骤4：累积最小/最大和差分**
+
+- **累积最小值**
+
+  ```python
+  print("累积最小值:\n", df.cummin())
+  ```
+
+- **累积最大值**
+
+  ```python
+  print("累积最大值:\n", df.cummax())
+  ```
+
+- **行之间的差异**
+
+  ```python
+  print("行之间的差异:\n", df.diff())
+  ```
+
+- **百分比变化**
+
+  ```python
+  print("百分比变化:\n", df.pct_change())
+  ```
+
+**说明：**
+
+- `value_counts()` 计数每个唯一值的出现次数。
+- `unique()` 返回一个唯一值数组。
+- `cumsum()` 计算行间的累积和。
+- `cumprod()` 计算行间的累积积。
+- `std()` 和 `var()` 计算标准差和方差。
+- `cummin()` 和 `cummax()` 计算累积最小值和最大值。
+- `diff()` 计算每个元素与其前驱的差异。
+- `pct_change()` 计算当前元素与前一个元素之间的百分比变化。
+
+---
+
+## 第四节：高级统计指标
+
+**目标：** 了解如协方差和相关性等高级统计方法。
+
+### **步骤1：协方差**
+
+- **协方差矩阵**
+
+  ```python
+  print("协方差矩阵:\n", df.cov())
+  ```
+
+- **'Python'和'Keras'之间的协方差**
+
+  ```python
+  python_keras_cov = df['Python'].cov(df['Keras'])
+  print(f"Python和Keras的协方差: {python_keras_cov}")
+  ```
+
+### **步骤2：相关性**
+
+- **相关性矩阵**
+
+  ```python
+  print("相关性矩阵:\n", df.corr())
+  ```
+
+- **与'TensorFlow'的相关性**
+
+  ```python
+  print("与'TensorFlow'的相关性:\n", df.corrwith(df['TensorFlow']))
+  ```
+
+**说明：**
+
+- `cov()` 计算协方差矩阵，显示每对列之间的协方差。
+- `df['Python'].cov(df['Keras'])` 计算'Python'和'Keras'之间的协方差。
+- `corr()` 计算相关性矩阵。
+- `corrwith()` 计算与另一个Series或DataFrame的每一列的配对相关性。
+
+---
+
+## 第五节：数据排序
+
+**目标：** 学习如何在pandas DataFrame中排序数据。
+
+### **步骤1：创建用于排序的DataFrame**
+
+```python
+df_sort = pd.DataFrame(
+    data=np.random.randint(0, 30, size=(30, 3)),
+    index=list('qwertyuiopasdfghjklzxcvbnmqwe'),
+    columns=['Python', 'Keras', 'PyTorch']
+)
+print(df_sort.head())
+​```
+
+### **步骤2：按索引和列名排序**
+
+- **按索引（行）排序**
+
+  ```python
+  df_sorted_index = df_sort.sort_index(axis=0, ascending=True)
+  print("按索引排序的DataFrame:\n", df_sorted_index.head())
+  ​```
+  ```
+
+- **按列名排序**
+
+  ```python
+  df_sorted_columns = df_sort.sort_index(axis=1, ascending=False)
+  print("按列名排序的DataFrame:\n", df_sorted_columns.head())
+  ```
+
+### **步骤3：按值排序**
+
+- **按'Python'列排序**
+
+  ```python
+  df_sorted_values = df_sort.sort_values(by=['Python'])
+  print("按'Python'值排序的DataFrame:\n", df_sorted_values.head())
+  ```
+
+- **按多列排序**
+
+  ```python
+  df_sorted_multiple = df_sort.sort_values(by=['Python', 'Keras'])
+  print("按'Python'和'Keras'值排序的DataFrame:\n", df_sorted_multiple.head())
+  ```
+
+### **步骤4：检索前/后N条记录**
+
+- **基于'Keras'的前5条记录**
+
+  ```python
+  top_5_keras = df_sort.nlargest(5, columns='Keras')
+  print("基于'Keras'的前5条记录:\n", top_5_keras)
+  ```
+
+- **基于'Python'的后5条记录**
+
+  ```python
+  bottom_5_python = df_sort.nsmallest(5, columns='Python')
+  print("基于'Python'的后5条记录:\n", bottom_5_python)
+  ```
+
+---
+
+## 第六节：分箱（离散化）
+
+**目标：** 将连续数据转换为分类区间。
+
+### **步骤1：创建示例数据**
+
+```python
+df_bin = pd.DataFrame(
+    data=np.random.randint(0, 150, size=(100, 3)),
+    columns=['Python', 'TensorFlow', 'Keras']
+)
+
+
+```
+
+### **步骤2：等宽分箱**
+
+- **使用`cut()`函数**
+
+  ```python
+  # 将'Python'成绩划分为3个等宽区间
+  python_bins = pd.cut(df_bin['Python'], bins=3)
+  print("等宽区间:\n", python_bins.value_counts())
+  ```
+
+- **指定自定义区间和标签**
+
+  ```python
+  keras_bins = pd.cut(
+      df_bin['Keras'],
+      bins=[0, 60, 90, 120, 150],
+      right=False,  # 左闭右开
+      labels=['不及格', '中等', '良好', '优秀']
+  )
+  print("自定义区间和标签:\n", keras_bins.value_counts())
+  ```
+
+### **步骤3：等频分箱**
+
+- **使用`qcut()`函数**
+
+  ```python
+  # 将'Python'成绩划分为4个等频区间
+  python_quantiles = pd.qcut(df_bin['Python'], q=4, labels=['差', '中', '良', '优'])
+  print("等频区间:\n", python_quantiles.value_counts())
+  ```
+
+**说明：**
+
+- `cut()` 将数据划分为等宽区间或自定义区间。
+- `qcut()` 根据分位数将数据划分为等大小的区间。
+
+---
+
+## 第七节：分组聚合
+
+**目标：** 使用pandas执行分组操作。
+
+### **步骤1：创建示例DataFrame**
+
+```python
+df_group = pd.DataFrame({
+    'sex': np.random.randint(0, 2, size=300),  # 0：男，1：女
+    'class': np.random.randint(1, 9, size=300),  # 班级1到8
+    'Python': np.random.randint(0, 151, size=300),
+    'Keras': np.random.randint(0, 151, size=300),
+    'TensorFlow': np.random.randint(0, 151, size=300),
+    'Java': np.random.randint(0, 151, size=300),
+    'C++': np.random.randint(0, 151, size=300)
+})
+
+# 将'性别'从0/1映射到'男'/'女'
+
+df_group['sex'] = df_group['sex'].map({0: '男', 1: '女'})
+​```
+
+### **步骤2：数据分组**
+
+- **按'性别'分组**
+
+  ```python
+  group_sex = df_group.groupby('sex')[['Python', 'Java']]
+  for name, data in group_sex:
+      print(f"组别: {name}")
+      print(data.head())
+  ​```
+  ```
+
+- **按多个键分组**
+
+  ```python
+  group_class_sex = df_group.groupby(['class', 'sex'])[['Python']]
+  ```
+
+### **步骤3：聚合函数**
+
+- **按性别计算平均成绩**
+
+  ```python
+  mean_scores = df_group.groupby('sex').mean().round(1)
+  print("按性别的平均成绩:\n", mean_scores)
+  ```
+
+- **按班级和性别计算最高成绩**
+
+  ```python
+  max_scores = df_group.groupby(['class', 'sex'])[['Python', 'Keras']].max()
+  print("按班级和性别的最高成绩:\n", max_scores)
+  ```
+
+- **按班级和性别计数学生人数**
+
+  ```python
+  student_counts = df_group.groupby(['class', 'sex']).size()
+  print("按班级和性别的学生人数:\n", student_counts)
+  ```
+
+- **描述性统计**
+
+  ```python
+  group_describe = df_group.groupby(['class', 'sex']).describe()
+  ```
+
+### **步骤4：使用`apply()`和`transform()`**
+
+- **对每个组应用函数**
+
+  ```python
+  def normalization(x):
+      return (x - x.min()) / (x.max() - x.min())
+  
+  normalized_scores = df_group.groupby(['class', 'sex'])[['Python', 'TensorFlow']].transform(normalization).round(3)
+  print("标准化成绩:\n", normalized_scores.head())
+  ```
+
+### **步骤5：使用`agg()`进行多重聚合**
+
+- **应用多种聚合**
+
+  ```python
+  agg_scores = df_group.groupby(['class', 'sex'])[['TensorFlow', 'Keras']].agg([np.max, np.min, pd.Series.count])
+  print("聚合成绩:\n", agg_scores)
+  ```
+
+- **自定义聚合及别名**
+
+  ```python
+  custom_agg = df_group.groupby(['class', 'sex'])[['Python', 'Keras']].agg({
+      'Python': [('最大值', np.max), ('最小值', np.min)],
+      'Keras': [('计数', pd.Series.count), ('中位数', np.median)]
+  })
+  print("自定义聚合成绩:\n", custom_agg)
+  ```
+
+### **步骤6：透视表**
+
+- **创建透视表**
+
+  ```python
+  def count(x):
+      return len(x)
+  
+  pivot = df_group.pivot_table(
+      values=['Python', 'Keras', 'TensorFlow'],
+      index=['class', 'sex'],
+      aggfunc={
+          'Python': [('最大值', np.max)],
+          'Keras': [('最小值', np.min), ('中位数', np.median)],
+          'TensorFlow': [('最小值', np.min), ('平均值', np.mean), ('计数', count)]
+      }
+  )
+  print("透视表:\n", pivot)
+  ```
+
+**说明：**
+
+- `groupby()` 根据指定键对数据进行分组。
+- 聚合函数如`mean()`、`max()`和`size()`为每个组计算统计数据。
+- `apply()`和`transform()`将函数应用于每个组。
+- `agg()`允许进行多重聚合，可以使用自定义函数和别名。
+- `pivot_table()`创建一个透视表，类似于电子表格软件中的透视表。
+
+---
+
+## 第八节：时间序列分析
+
+**目标：** 了解如何在pandas中处理时间序列数据。
+
+### **步骤1：时间戳操作**
+
+- **创建时间戳和时期对象**
+
+  ```python
+  timestamp = pd.Timestamp('2020-08-24 12:00')
+  period = pd.Period('2020-08', freq='M')
+  date_range = pd.date_range('2020-08-24', periods=5, freq='M')
+  period_range = pd.period_range('2020-08-24', periods=5, freq='M')
+  ```
+
+- **转换为日期时间**
+
+  ```python
+  dates =
+  ```
+
+ pd.to_datetime(['2020.08.24', '2020-08-24', '24/08/2020', '2020/8/24'])
+  unix_time = pd.to_datetime([1598582232], unit='s')
+
+  ```
+### **步骤2：时间序列索引**
+
+- **创建时间序列**
+
+  ```python
+  index = pd.date_range("2020-08-24", periods=200, freq="D")
+  ts = pd.Series(range(len(index)), index=index)
+  ```
+
+- **访问数据**
+
+  ```python
+  # 通过日期字符串访问
+  print(ts['2020-08-30'])
+  # 切片
+  print(ts['2020-08-24':'2020-09-03'])
+  # 通过年或月访问
+  print(ts['2020-08'])
+  print(ts['2020'])
+  ```
+
+- **DatetimeIndex属性**
+
+  ```python
+  print(ts.index.year)
+  print(ts.index.dayofweek)
+  print(ts.index.isocalendar())
+  ```
+
+### **步骤3：常用时间序列方法**
+
+- **数据移动**
+
+  ```python
+  # 数据移动
+  ts_shifted = ts.shift(periods=2)
+  # 日期移动
+  ts_date_shifted = ts.shift(periods=2, freq='D')
+  ```
+
+- **频率转换**
+
+  ```python
+  ts_weekly = ts.asfreq('W')
+  ts_monthly = ts.asfreq('M')
+  ```
+
+- **重采样**
+
+  ```python
+  ts_resampled = ts.resample('2W').sum()
+  ```
+
+### **步骤4：时区表示**
+
+- **本地化时区**
+
+  ```python
+  ts_utc = ts.tz_localize('UTC')
+  ```
+
+- **转换时区**
+
+  ```python
+  ts_shanghai = ts_utc.tz_convert('Asia/Shanghai')
+  ```
+
+---
+
+## 第九节：数据可视化
+
+**目标：** 使用matplotlib和pandas绘图功能可视化数据。
+
+### **步骤1：导入Matplotlib**
+
+```python
+import matplotlib.pyplot as plt
+%matplotlib inline
+​```
+
+### **步骤2：线形图**
+
+```python
+df_line = pd.DataFrame(
+    data=np.random.randn(1000, 4),
+    index=pd.date_range('2012-06-27', periods=1000),
+    columns=list('ABCD')
+)
+df_line = df_line.cumsum()
+df_line.plot()
+plt.title('线形图')
+plt.show()
+​```
+
+### **步骤3：条形图**
+
+```python
+df_bar = pd.DataFrame(data=np.random.rand(10, 4), columns=list('ABCD'))
+df_bar.plot.bar(stacked=True)
+plt.title('堆叠条形图')
+plt.show()
+​```
+
+### **步骤4：饼图**
+
+```python
+df_pie = pd.DataFrame(data=np.random.rand(4, 2), index=list('ABCD'), columns=['One', 'Two'])
+df_pie.plot.pie(subplots=True, figsize=(8, 8))
+plt.title('饼图')
+plt.show()
+​```
+
+### **步骤5：散点图**
+
+```python
+df_scatter = pd.DataFrame(np.random.rand(50, 4), columns=list('ABCD'))
+ax = df_scatter.plot.scatter(x='A', y='B', color='DarkBlue', label='Group 1')
+df_scatter.plot.scatter(x='C', y='D', color='DarkGreen', label='Group 2', ax=ax)
+plt.title('散点图')
+plt.show()
+​```
+
+### **步骤6：直方图**
+
+```python
+df_hist = pd.DataFrame({
+    'A': np.random.randn(1000) + 1,
+    'B': np.random.randn(1000),
+    'C': np.random.randn(1000) - 1
+})
+df_hist.plot.hist(alpha=0.5)
+plt.title('直方图')
+plt.show()
+​```
+
+---
+
+## 第十节：实战 - 拉勾网数据分析师招聘数据分析
+
+**目标：** 分析拉勾网上数据分析师职位招聘信息，提取洞察力。
+
+### **步骤1：分析目标**
+
+- 确定不同城市对数据分析岗位的需求情况。
+- 识别所需技能和资格。
+- 分析薪资分布及影响薪资的因素。
+
+### **步骤2：数据加载**
+
+```python
+
+# 加载数据
+
+job = pd.read_csv('lagou2020.csv')
+
+# 删除重复数据
+
+job.drop_duplicates(inplace=True)
+​```
+
+### **步骤3：数据清洗**
+
+- **过滤数据分析岗位**
+
+  ```python
+  # 过滤包含'数据分析'的职位
+  cond = job["positionName"].str.contains("数据分析")
+  job = job[cond].reset_index(drop=True)
+  ​```
+  ```
+
+- **处理薪资信息**
+
+  ```python
+  # 提取薪资区间并计算平均值
+  job["salary"] = job["salary"].str.lower()
+  salary = job["salary"].str.extract(r'(\d+)[k]-(\d+)k').astype(int)
+  job["salary"] = salary.mean(axis=1)
+  ```
+
+- **提取技能要求**
+
+  ```python
+  job["job_detail"] = job["job_detail"].str.lower().fillna("")
+  job["Python"] = job["job_detail"].apply(lambda x: 1 if 'python' in x else 0)
+  job["SQL"] = job["job_detail"].apply(lambda x: 1 if 'sql' in x or 'hive' in x else 0)
+  job["Tableau"] = job["job_detail"].apply(lambda x: 1 if 'tableau' in x else 0)
+  job["Excel"] = job["job_detail"].apply(lambda x: 1 if 'excel' in x else 0)
+  job['SPSS/SAS'] = job["job_detail"].apply(lambda x: 1 if 'spss' in x or 'sas' in x else 0)
+  ```
+
+- **清洗行业信息**
+
+  ```python
+  def clean_industry(industry):
+      industries = industry.split(",")
+      if industries[0] == "移动互联网" and len(industries) > 1:
+          return industries[1]
+      else:
+          return industries[0]
+  
+  job["industryField"] = job["industryField"].apply(clean_industry)
+  ```
+
+### **步骤4：数据分析与可视化**
+
+- **按城市需求**
+
+  ```python
+  city_counts = job['city'].value_counts()
+  city_counts.plot.barh(figsize=(10, 8))
+  plt.title('各城市对数据分析师的需求')
+  plt.xlabel('职位发布数量')
+  plt.ylabel('城市')
+  plt.show()
+  ```
+
+- **薪资分布**
+
+  ```python
+  job['salary'].plot.hist(bins=20)
+  plt.title('数据分析师职位的薪资分布')
+  plt.xlabel('平均薪资 (K)')
+  plt.ylabel('职位发布数量')
+  plt.show()
+  ```
+
+- **技能需求**
+
+  ```python
+  skills = ['Python', 'SQL', 'Tableau', 'Excel', 'SPSS/SAS']
+  skill_counts = job[skills].sum()
+  skill_counts.plot.bar()
+  plt.title('特定技能的需求')
+  plt.xlabel('技能')
+  plt.ylabel('职位发布数量')
+  plt.show()
+  ```
+
+- **经验与薪资**
+
+  ```python
+  # 假设'workYear'是经验要求的列
+  experience_salary = job.groupby('work
+  ```
+
+Year')['salary'].mean()
+  experience_salary.plot.line()
+  plt.title('工作经验与平均薪资')
+  plt.xlabel('工作经验')
+  plt.ylabel('平均薪资 (K)')
+  plt.show()
+
+---
+
+**结论**
+
+通过这份全面的指南，我们探讨了pandas中的各种数学和统计方法，学习了如何操作和分析数据，并将这些技术应用于实际数据集。通过遵循这些步骤，您现在应该能够使用pandas执行复杂的数据分析，从复杂的数据集中提取有价值的洞察。
+
+请记住，有效数据分析的关键不仅仅是了解工具，更重要的是理解如何应用这些工具来回答有意义的问题。
+
+
+
